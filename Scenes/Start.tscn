@@ -1,11 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Start.gd" type="Script" id=1]
 [ext_resource path="res://UI/titleFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://UI/buttonFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://UI/kenpixel_mini_square.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Sounds/Start00.wav" type="AudioStream" id=5]
 
 [sub_resource type="DynamicFont" id=1]
+size = 8
 font_data = ExtResource( 4 )
 
 [node name="StartScreen" type="CanvasLayer"]
@@ -34,12 +36,16 @@ text = "START"
 flat = true
 
 [node name="Footer" type="Label" parent="."]
-margin_left = 1.0
-margin_top = 157.0
-margin_right = 318.0
-margin_bottom = 176.0
+margin_left = 0.581879
+margin_top = 157.418
+margin_right = 317.582
+margin_bottom = 176.418
 custom_fonts/font = SubResource( 1 )
 text = "2019 @jickingx"
 align = 1
 valign = 1
+
+[node name="SoundStart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
 [connection signal="button_up" from="Button" to="." method="_on_Button_button_up"]
+[connection signal="finished" from="SoundStart" to="." method="_on_SoundStart_finished"]

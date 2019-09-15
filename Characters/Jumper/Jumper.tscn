@@ -1,35 +1,94 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Characters/Jumper/sprite00_16x16_0000.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Jumper/sprite00_16x16_0001.png" type="Texture" id=2]
+[ext_resource path="res://Sounds/Jump01.wav" type="AudioStream" id=3]
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 signal npc_collided
-
-var gravity = 200.0
-var walk_Speed = 140
-var velocity = Vector2()
 var isDisabled = false
+
+# This demo shows how to build a kinematic controller.
+
+# Member variables
+const GRAVITY = 400.0 # pixels/second/second
+
+# Angle in degrees towards either side that the player can consider \"floor\"
+const FLOOR_ANGLE_TOLERANCE = 40
+const WALK_FORCE = 200
+const WALK_MIN_SPEED = 10
+const WALK_MAX_SPEED = 200
+const STOP_FORCE = 1300
+const JUMP_SPEED = 200
+const JUMP_MAX_AIRBORNE_TIME = 0.2
+
+const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
+const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
+
+#cache the sprite here for fast access (we will set scale to flip it often)
+onready var sprite = $AnimatedSprite
+onready var jump_sound = $JumpSound
+
+
+var velocity = Vector2()
+var on_air_time = 100
+var jumping = false
+
+var prev_jump_pressed = false
 
 func _physics_process(delta):
 	if isDisabled :
 		return
+	# Create forces
+	var force = Vector2(0, GRAVITY)
 	
-	velocity.y += delta * gravity
+	var walk_left = Input.is_action_pressed(\"ui_left\")
+	var walk_right = Input.is_action_pressed(\"ui_right\")
+	var jump = Input.is_action_pressed(\"ui_up\")
 	
-	if Input.is_action_pressed(\"ui_left\"):
-	    velocity.x = -walk_Speed
-	elif Input.is_action_pressed(\"ui_right\"):
-	    velocity.x =  walk_Speed
-	else:
-	    velocity.x = 0
+	var stop = true
 	
-	# We don't need to multiply velocity by delta because \"move_and_slide\" already takes delta time into account.
+	if walk_left:
+		if velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED:
+			force.x -= WALK_FORCE
+			stop = false
+	elif walk_right:
+		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
+			force.x += WALK_FORCE
+			stop = false
 	
-	# The second parameter of \"move_and_slide\" is the normal pointing up.
-	# In the case of a 2D platformer, in Godot, upward is negative y, which translates to -1 as a normal.
-	move_and_slide(velocity, Vector2(0, -1))
+	if stop:
+		var vsign = sign(velocity.x)
+		var vlen = abs(velocity.x)
+		
+		vlen -= STOP_FORCE * delta
+		if vlen < 0:
+			vlen = 0
+		
+		velocity.x = vlen * vsign
+	
+	# Integrate forces to velocity
+	velocity += force * delta	
+	# Integrate velocity into motion and move
+	velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+	if is_on_floor():
+		on_air_time = 0
+		
+	if jumping and velocity.y > 0:
+		# If falling, no longer jumping
+		jumping = false
+	
+	if on_air_time < JUMP_MAX_AIRBORNE_TIME and jump and not prev_jump_pressed and not jumping:
+		# Jump must also be allowed to happen if the character left the floor a little bit ago.
+		# Makes controls more snappy.
+		velocity.y = -JUMP_SPEED
+		jumping = true
+		jump_sound.play()
+	
+	on_air_time += delta
+	prev_jump_pressed = jump
 
 func _on_NpcSensorArea2D_body_entered(body):
 	if body.is_in_group(\"npc\"):
@@ -37,12 +96,15 @@ func _on_NpcSensorArea2D_body_entered(body):
 		print_debug(\"SIGNAL npc_collided name: \" + body.name)
 
 func disable():
+	if isDisabled :
+		return
+	
 	isDisabled = true
 
 func enable():
 	isDisabled = false"
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
 "loop": true,
@@ -50,7 +112,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 radius = 6.14224
 height = 2.25533
 
@@ -58,16 +120,15 @@ height = 2.25533
 radius = 8.54558
 
 [node name="Jumper" type="KinematicBody2D"]
-script = SubResource( 3 )
+script = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
-frame = 1
+frames = SubResource( 2 )
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.0769501, 0.538612 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -77,4 +138,7 @@ smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NpcSensorArea2D"]
 shape = SubResource( 4 )
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
 [connection signal="body_entered" from="NpcSensorArea2D" to="." method="_on_NpcSensorArea2D_body_entered"]

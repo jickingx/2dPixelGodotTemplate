@@ -9,6 +9,7 @@ var current_page = 0
 var pages = []
 var rtLabel
 
+onready var sound = $AudioStreamPlayer
 
 func _ready():
 	current_page = 0
@@ -34,6 +35,8 @@ func text_advance():
 		current_page = current_page + 1
 		rtLabel.visible_characters = 0
 		delta_time = 0
+		sound.play()
+		
 		if(pages.size() - 1 >= current_page):
 			rtLabel.bbcode_text = align_center( pages[current_page])
 		else:
@@ -57,6 +60,7 @@ func hide():
 
 func show():
 	$Container.visible = true
+	sound.play()
 
 
 func _input(event):
