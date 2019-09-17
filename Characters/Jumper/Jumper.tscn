@@ -7,6 +7,8 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 signal npc_collided
+signal door_collided
+
 var isDisabled = false
 
 # This demo shows how to build a kinematic controller.
@@ -89,11 +91,16 @@ func _physics_process(delta):
 	
 	on_air_time += delta
 	prev_jump_pressed = jump
+	sync_with_camera()
 
 func _on_NpcSensorArea2D_body_entered(body):
 	if body.is_in_group(\"npc\"):
 		emit_signal(\"npc_collided\",body.name)
 		print_debug(\"SIGNAL npc_collided name: \" + body.name)
+	if body.is_in_group(\"doors\") && body.has_method(\"goto_scene\"):
+		emit_signal(\"door_collided\") # attach to scene to set scene state (eg: unlocked door, secret)
+		print_debug(\"doors_collided name: \" + body.next_scene)
+		body.goto_scene()
 
 func disable():
 	if isDisabled :
@@ -102,7 +109,13 @@ func disable():
 	isDisabled = true
 
 func enable():
-	isDisabled = false"
+	isDisabled = false
+
+func sync_with_camera():
+	position.x = clamp(position.x, $Camera2D.limit_left, $Camera2D.limit_right)
+	position.y = clamp(position.y, $Camera2D.limit_top, $Camera2D.limit_bottom) 
+
+"
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -119,7 +132,7 @@ height = 2.25533
 [sub_resource type="CircleShape2D" id=4]
 radius = 8.54558
 
-[node name="Jumper" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D"]
 script = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

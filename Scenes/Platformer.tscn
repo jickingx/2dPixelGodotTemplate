@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Tilesets/TestTileset00.tres" type="TileSet" id=1]
 [ext_resource path="res://Characters/Jumper/Jumper.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/Npcs/Npc00.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Characters/Doors/Door00.tscn" type="PackedScene" id=4]
 
 [node name="Node2D" type="Node2D"]
 
@@ -15,7 +16,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Jumper" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 161.397, 110.813 )
 
 [node name="Npc00" parent="." instance=ExtResource( 3 )]
+
+[node name="Door00" parent="." instance=ExtResource( 4 )]
+position = Vector2( 454.482, 213.283 )
+next_scene = "res://Scenes/Topdown.tscn"

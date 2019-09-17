@@ -14,7 +14,7 @@ var player = null
 var dialoguebox = null
 
 #player states
-const PLAYER_NAME = "Jumper"
+const PLAYER_NAME = "Player"
 var hasUnlockedLevel00 : bool = false
 var block00_position = null
 
@@ -22,6 +22,10 @@ func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
 	print_debug("current scene: " + current_scene.name)
+	#set up 
+	load_json_data()
+	setup_simple_dialogue()
+	setup_fade_transition()
 
 func goto_scene(path):
 	fade_out_transition()
