@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Tilesets/TestTileset00.tres" type="TileSet" id=1]
 [ext_resource path="res://Characters/Jumper/Jumper.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/Npcs/Npc00.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Characters/Doors/Door00.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 
@@ -24,3 +25,5 @@ position = Vector2( 161.397, 110.813 )
 [node name="Door00" parent="." instance=ExtResource( 4 )]
 position = Vector2( 454.482, 213.283 )
 next_scene = "res://Scenes/Topdown.tscn"
+
+[node name="PauseMenu" parent="." instance=ExtResource( 5 )]

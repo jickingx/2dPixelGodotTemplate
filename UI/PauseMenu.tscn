@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://UI/buttonFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/ui-pause-icon-00_8x8.png" type="Texture" id=3]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource( 1 )
+main_menu_scene = "res://Scenes/Start.tscn"
+
+[node name="Popup" type="Popup" parent="."]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -40.0
+margin_right = 60.0
+margin_bottom = 70.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Popup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -55.0
+margin_top = -45.0
+margin_right = 55.0
+margin_bottom = 46.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/CenterContainer"]
+margin_left = 8.0
+margin_top = 17.0
+margin_right = 102.0
+margin_bottom = 73.0
+
+[node name="ButtonMainMenu" type="Button" parent="Popup/CenterContainer/VBoxContainer"]
+margin_right = 94.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 2 )
+text = "MAIN MENU"
+flat = true
+
+[node name="ButtonExit" type="Button" parent="Popup/CenterContainer/VBoxContainer"]
+margin_top = 30.0
+margin_right = 94.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 2 )
+text = "EXIT"
+flat = true
+
+[node name="ColorRect" type="ColorRect" parent="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0.403922 )
+
+[node name="ButtonPause" type="Button" parent="."]
+pause_mode = 2
+margin_left = 300.0
+margin_right = 320.0
+margin_bottom = 20.0
+icon = ExtResource( 3 )
+flat = true
+[connection signal="button_up" from="Popup/CenterContainer/VBoxContainer/ButtonMainMenu" to="." method="_on_ButtonMainMenu_button_up"]
+[connection signal="button_up" from="Popup/CenterContainer/VBoxContainer/ButtonExit" to="." method="_on_ButtonExit_button_up"]
+[connection signal="button_up" from="ButtonPause" to="." method="_on_ButtonPause_button_up"]

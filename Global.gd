@@ -28,7 +28,7 @@ func _ready():
 	setup_fade_transition()
 
 func goto_scene(path):
-	fade_out_transition()
+	#fade_out_transition()
 	# This function will usually be called from a signal callback,
 	# or some other function in the current scene.
 	# The solution is to defer the load to a later time, when
