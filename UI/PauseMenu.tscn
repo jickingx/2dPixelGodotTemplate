@@ -5,6 +5,7 @@
 [ext_resource path="res://UI/ui-pause-icon-00_8x8.png" type="Texture" id=3]
 
 [node name="PauseMenu" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 1 )
 main_menu_scene = "res://Scenes/Start.tscn"
 

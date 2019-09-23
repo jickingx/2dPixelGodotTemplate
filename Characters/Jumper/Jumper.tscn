@@ -18,11 +18,11 @@ const GRAVITY = 400.0 # pixels/second/second
 
 # Angle in degrees towards either side that the player can consider \"floor\"
 const FLOOR_ANGLE_TOLERANCE = 40
-const WALK_FORCE = 200
+const WALK_FORCE = 120
 const WALK_MIN_SPEED = 10
-const WALK_MAX_SPEED = 200
+const WALK_MAX_SPEED = 120
 const STOP_FORCE = 1300
-const JUMP_SPEED = 200
+const JUMP_SPEED = 170
 const JUMP_MAX_AIRBORNE_TIME = 0.2
 
 const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
@@ -125,9 +125,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 6.14224
-height = 2.25533
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 5.33115
+height = 5.66335
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 8.54558
@@ -137,11 +137,12 @@ script = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.0769501, 0.538612 )
-shape = SubResource( 3 )
+position = Vector2( 0, 0.4 )
+shape = SubResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

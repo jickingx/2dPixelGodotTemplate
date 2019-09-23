@@ -11,6 +11,7 @@ size = 8
 font_data = ExtResource( 4 )
 
 [node name="StartScreen" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 1 )
 next_scene = "res://Scenes/Platformer.tscn"
 
