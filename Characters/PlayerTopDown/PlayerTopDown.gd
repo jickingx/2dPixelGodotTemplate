@@ -23,6 +23,9 @@ func _physics_process(delta):
 	get_input()
 	move_and_collide(velocity * delta)
 
+func _ready():
+	disable()
+
 func disable():
 	if is_disabled :
 		return
@@ -31,3 +34,6 @@ func disable():
 
 func enable():
 	is_disabled = false
+
+func _on_TimerEnablePlayer_timeout():
+	enable()
