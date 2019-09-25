@@ -6,10 +6,6 @@
 [ext_resource path="res://Characters/Doors/Door00.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=5]
 
-
-
-
-
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -28,6 +24,6 @@ position = Vector2( 161.397, 110.813 )
 
 [node name="Door00" parent="." instance=ExtResource( 4 )]
 position = Vector2( 454.482, 213.283 )
-next_scene = "res://Scenes/Topdown.tscn"
+next_scene = "res://Scenes/Levels/Topdown.tscn"
 
 [node name="PauseMenu" parent="." instance=ExtResource( 5 )]
