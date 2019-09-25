@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sprite00_16x16_0001.png-80597a632005f19f773aa4c394a62a83.stex"
+path="res://.import/sprite00_16x16_0001.png-f3cd0bf1ca89786ede8eaa71b79a72e5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/Jumper/sprite00_16x16_0001.png"
-dest_files=[ "res://.import/sprite00_16x16_0001.png-80597a632005f19f773aa4c394a62a83.stex" ]
+source_file="res://Characters/PlayerPlatformer/sprite00_16x16_0001.png"
+dest_files=[ "res://.import/sprite00_16x16_0001.png-f3cd0bf1ca89786ede8eaa71b79a72e5.stex" ]
 
 [params]
 

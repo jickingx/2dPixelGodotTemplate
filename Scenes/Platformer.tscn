@@ -1,10 +1,14 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Tilesets/TestTileset00.tres" type="TileSet" id=1]
-[ext_resource path="res://Characters/Jumper/Jumper.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Characters/PlayerPlatformer/PlayerPlatformer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/Npcs/Npc00.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Characters/Doors/Door00.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=5]
+
+
+
+
 
 [node name="Node2D" type="Node2D"]
 
