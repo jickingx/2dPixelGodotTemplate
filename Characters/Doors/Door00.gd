@@ -16,6 +16,7 @@ func goto_scene():
 
 func _on_Door00_body_entered(body):
 	if body.is_in_group("player"):
+		print_debug("Collided with " + body.name)
 		$AudioStreamPlayer2D.play()
 		if body.has_method("disable"):
 			body.disable()

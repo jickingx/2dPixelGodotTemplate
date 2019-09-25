@@ -1,4 +1,4 @@
 {
-   "Npc00":"[center] HELLO[/center][center] SUPPORTS BB CODE DATA[/center]",
+   "Npc00":"[center] Hello , I am a NPC[/center][center] Press Enter to continue..[/center];[center] This dialog box supports BB Code [/center];[center] Text data is set on //simple-dialogue-box-data.json [/center];[center] Go to door to exit level.[/center]",
    "?":"[center]No idea?[/center]"
 }

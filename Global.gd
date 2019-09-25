@@ -90,29 +90,24 @@ func setup_simple_dialogue() -> void:
 	
 	player = current_scene.get_node(PLAYER_NAME)
 	dialoguebox = current_scene.get_node(DIALOGUEBOX_NAME)
-	
-	#TODO: refactor if needed to call npc_collided signal
-	#or call _on_Player_npc_collided directly
-	#ATTACH SIGNALS 
-	player.connect("npc_collided", self, "_on_Player_npc_collided")
+
+	#ATTACH SIGNALS
 	dialoguebox.connect("closed", self, "_on_DialogueBox_closed")
 
 
+#CALLED BY NPCs
 func show_simple_dialogue(npc_name):
+	if player.has_method("disable"):
+		player.disable()
+	
 	var text = data[npc_name]
 	dialoguebox.dialogue_text = text
 	dialoguebox._ready()
 	dialoguebox.show()
 
-
-func _on_Player_npc_collided(npc_name):
-	print_debug("GLOBAL collided npc:" + npc_name)
-	player.disable()
-	show_simple_dialogue(npc_name)
-
-
 func _on_DialogueBox_closed():
-	player.enable()
+	if player.has_method("enable"):
+		player.enable()
 
 
 func load_json_data():
