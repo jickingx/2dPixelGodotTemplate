@@ -21,6 +21,7 @@ __meta__ = {
 position = Vector2( 161.397, 110.813 )
 
 [node name="Npc00" parent="." instance=ExtResource( 3 )]
+position = Vector2( 264.05, 212.653 )
 
 [node name="Door00" parent="." instance=ExtResource( 4 )]
 position = Vector2( 454.482, 213.283 )

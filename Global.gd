@@ -73,7 +73,7 @@ func fade_out_transition() -> void:
 
 func setup_simple_dialogue() -> void:
 	#Check if player in scene then add dialogue manager
-	#todo: refator to get player based on group
+	#todo: refactor to get player based on group
 	if current_scene.get_node(PLAYER_NAME) == null:
 		print_debug("No player")
 		player = null
