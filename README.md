@@ -7,8 +7,9 @@ pixel perfect proj settings
 pixel perfect import settings
 scene transition
 dialogue system
-
-#Todos
 door
 use global state
+
+
+#Todos
 refactor dialogue system
